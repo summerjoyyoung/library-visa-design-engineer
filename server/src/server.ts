@@ -5,10 +5,8 @@ const port = 3000;
 
 app.use(cors());
 
-app.get('/name', (req, res) => {
+app.get('/name', (_req: any, res: { send: (arg0: { name: string; }) => void; }) => {
   res.send({name: 'Summer'});
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+module.exports = app;
