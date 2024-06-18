@@ -1,10 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [name, setName] = useState('')
+
+  useEffect(() => {
+    fetch('http://localhost:3000/name')
+      .then((res) => res.json())
+      .then(({ name }) => setName(name))
+  }, [])
 
   return (
     <>
@@ -16,7 +23,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Hello Summer!</h1>
+      <h1>{`Hello ${name}!`}</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
