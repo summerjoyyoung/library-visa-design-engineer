@@ -1,41 +1,45 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from 'react'
+import Container from 'react-bootstrap/Container'
+import Button from 'react-bootstrap/Button'
+import BookGrid from './components/bookGrid'
+import ConfirmDeleteDialog from './components/confirmDeleteDialog'
+import { create } from 'zustand'
+import { Books } from '../../../types'
+
+interface AppState {
+  books: Books
+  showConfirmDelete: boolean
+  setBooks: (books: Books) => void
+  setShowConfirmDelete: (show: boolean) => void
+}
+
+const useAppState = create<AppState>((set) => ({
+  books: [],
+  showConfirmDelete: false,
+  setBooks: (books) => set({ books }),
+  setShowConfirmDelete: (show) => set({ showConfirmDelete: show }),
+}))
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [name, setName] = useState('')
+  const name = 'Library Manager'
+  const { books, showConfirmDelete, setBooks, setShowConfirmDelete } = useAppState()  
 
   useEffect(() => {
-    fetch('http://localhost:3000/name')
+    fetch('http://localhost:3000/books')
       .then((res) => res.json())
-      .then(({ name }) => setName(name))
-  }, [])
+      .then((data) => {
+        setBooks(data)
+      })
+  }, [setBooks])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>{`Hello ${name}!`}</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Container className='p-3'>
+      <h1>{name}</h1>
+      <Button onClick={() => {/* TODO */}}>Add Book</Button>
+      <h2>{books.length} books total</h2>
+      <BookGrid books={books} setShowConfirmDelete={setShowConfirmDelete} />
+      <ConfirmDeleteDialog show={showConfirmDelete} handleClose={() => setShowConfirmDelete(false)} handleDelete={() => {/* TODO */}} />
+    </Container>
   )
 }
 

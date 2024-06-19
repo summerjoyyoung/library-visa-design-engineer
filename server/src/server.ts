@@ -1,3 +1,4 @@
+import { Book, Books } from '../../types';
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -9,16 +10,16 @@ app.get('/name', (_req: any, res: { send: (arg0: { name: string; }) => void; }) 
   res.send({name: 'Summer'});
 });
 
-type Book = {
-  id: number;
-  title: string;
-  author: string;
-  year: number;
-  genre: string;
-};
-
 // A temporary in-memory "database"
-let books: Array<Book> = [];
+let books: Books = [
+  { id: 1, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', year: 1925, genre: 'Novel' },
+  { id: 2, title: 'Great Expectations', author: 'Charles Dickens', year: 1861, genre: 'Novel' },
+  { id: 3, title: 'Hard Times', author: 'Charles Dickens', year: 1854, genre: 'Novel' },
+  { id: 4, title: 'The Catcher in the Rye', author: 'J.D. Salinger', year: 1951, genre: 'Novel' },
+  { id: 5, title: 'The Bell Jar', author: 'Sylvia Plath', year: 1963, genre: 'Novel' },
+  { id: 6, title: 'The Picture of Dorian Gray', author: 'Oscar Wilde', year: 1890, genre: 'Novel' },
+  { id: 7, title: 'The Sun Also Rises', author: 'Ernest Hemingway', year: 1926, genre: 'Novel' },
+];
 
 app.use(express.json());
 
