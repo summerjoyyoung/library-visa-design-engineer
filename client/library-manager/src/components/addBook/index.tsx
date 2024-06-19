@@ -1,8 +1,14 @@
+import Button from "react-bootstrap/Button"
+import BookForm from "../shared/bookForm"
+
 function AddBook() {
+
+    const handleAddBook = () => {
+        console.log('Add book')
+    }
+    
   return (
-    <div>
-      <h1>Add Book</h1>
-    </div>
+    <BookForm headerText="Add Book" footerButton={<Button onClick={() => handleAddBook}>Add Book</Button>} />
   )
 }
 
