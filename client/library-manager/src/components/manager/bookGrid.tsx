@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button'
-import { Book, Books } from '../../../../types'
+import { Book, Books } from '../../../../../types'
 
 type BookGridProps = {
     books: Books,
@@ -27,7 +27,7 @@ function BookGrid({ books, setShowConfirmDelete, setDeleteBookId }: BookGridProp
                 <Card.Text>{book.year}</Card.Text>
                 <Card.Text>{book.genre}</Card.Text>
                 <Button onClick={() => handleDelete(book.id)} variant='outline-danger'>Delete</Button>
-                <Button variant='primary'>Edit</Button>
+                <Button variant='primary' href={`/edit-book/${book.id}`}>Edit</Button>
               </Card.Body>
             </Card>
           </Col>
