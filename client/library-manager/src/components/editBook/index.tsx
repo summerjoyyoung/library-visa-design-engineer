@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button"
 import BookForm from "../shared/bookForm"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { Book } from "../../../../../types"
 import { create } from "zustand"
@@ -18,6 +18,7 @@ const useEditState = create<EditState>((set) => ({
 function EditBook() {
     const { id } = useParams()
     const { book, setBook } = useEditState()
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetch(`http://localhost:3000/books/${id}`)
@@ -35,6 +36,7 @@ function EditBook() {
         })
             .then(() => {
                 console.log('Book edited')
+                return navigate('/')
             })
     }
 

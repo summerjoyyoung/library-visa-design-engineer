@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button"
 import BookForm from "../shared/bookForm"
 import { Book } from "../../../../../types"
 import { create } from "zustand"
+import { useNavigate } from "react-router-dom"
 
 interface AddBookState {
     book: Book | undefined
@@ -15,6 +16,7 @@ const useAddBookState = create<AddBookState>((set) => ({
 
 function AddBook() {
     const { book, setBook } = useAddBookState()
+    const navigate = useNavigate()
 
     const handleAddBook = () => {
         fetch('http://localhost:3000/books', {
@@ -26,6 +28,7 @@ function AddBook() {
         })
             .then(() => {
                 console.log('Book added')
+                return navigate('/')
             })
     }
 
