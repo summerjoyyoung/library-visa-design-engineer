@@ -6,9 +6,10 @@ type BookFormProps = {
     headerText: string;
     footerButton: JSX.Element;
     formContent?: Book;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-function BookForm({ headerText, footerButton, formContent }: BookFormProps) {
+function BookForm({ headerText, footerButton, formContent, onChange }: BookFormProps) {
     return (
         <Container>
             <h1>{headerText}</h1>
@@ -20,6 +21,7 @@ function BookForm({ headerText, footerButton, formContent }: BookFormProps) {
                             type="text"
                             placeholder="Enter title"
                             defaultValue={formContent?.title}
+                            onChange={onChange}
                         />
                     </Form.Group>
                     <Form.Group as={Col} controlId="author">
@@ -28,6 +30,7 @@ function BookForm({ headerText, footerButton, formContent }: BookFormProps) {
                             type="text"
                             placeholder="Enter author"
                             defaultValue={formContent?.author}
+                            onChange={onChange}
                         />
                     </Form.Group>
                 </Row>
@@ -38,6 +41,7 @@ function BookForm({ headerText, footerButton, formContent }: BookFormProps) {
                             type="text"
                             placeholder="Enter year"
                             defaultValue={formContent?.year}
+                            onChange={onChange}
                         />
                     </Form.Group>
                     <Form.Group as={Col} controlId="genre">
@@ -46,6 +50,7 @@ function BookForm({ headerText, footerButton, formContent }: BookFormProps) {
                             type="text"
                             placeholder="Enter genre"
                             defaultValue={formContent?.genre}
+                            onChange={onChange}
                         />
                     </Form.Group>
                 </Row>

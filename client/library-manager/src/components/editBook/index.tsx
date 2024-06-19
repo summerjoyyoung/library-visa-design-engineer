@@ -38,8 +38,16 @@ function EditBook() {
             })
     }
 
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        const { id, value } = event.target
+        setBook({
+            ...book,
+            [id]: value,
+        })
+    }
+
     return (
-      <BookForm headerText="Edit Book" footerButton={<Button onClick={handleEditBook}>Edit Book</Button>} formContent={book} />
+      <BookForm headerText="Edit Book" onChange={onChange} footerButton={<Button onClick={handleEditBook}>Edit Book</Button>} formContent={book} />
     )
   }
   
