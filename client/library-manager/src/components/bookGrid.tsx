@@ -7,11 +7,13 @@ import { Book, Books } from '../../../../types'
 type BookGridProps = {
     books: Books,
     setShowConfirmDelete: (show: boolean) => void
+    setDeleteBookId: (id: number) => void
 }
 
-function BookGrid({ books, setShowConfirmDelete }: BookGridProps) {
-    const handleDelete = () => {
+function BookGrid({ books, setShowConfirmDelete, setDeleteBookId }: BookGridProps) {
+    const handleDelete = (id: number) => {
         setShowConfirmDelete(true)
+        setDeleteBookId(id)
     }
   return (
     <Row xs={1} md={2} lg={3} className='g-4'>
@@ -24,7 +26,7 @@ function BookGrid({ books, setShowConfirmDelete }: BookGridProps) {
                 <Card.Subtitle>{book.author}</Card.Subtitle>
                 <Card.Text>{book.year}</Card.Text>
                 <Card.Text>{book.genre}</Card.Text>
-                <Button onClick={handleDelete} variant='outline-danger'>Delete</Button>
+                <Button onClick={() => handleDelete(book.id)} variant='outline-danger'>Delete</Button>
                 <Button variant='primary'>Edit</Button>
               </Card.Body>
             </Card>
