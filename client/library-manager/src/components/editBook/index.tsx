@@ -1,9 +1,9 @@
-import Button from "react-bootstrap/Button"
 import BookForm from "../shared/bookForm"
 import { useParams, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { Book } from "../../../../../types"
 import { create } from "zustand"
+import Container from "react-bootstrap/Container"
 
 interface EditState {
     book: Book | undefined
@@ -26,13 +26,13 @@ function EditBook() {
             .then(data => setBook(data))
     }, [id, setBook])
 
-    const handleEditBook = () => {
+    const handleEditBook = (values: Book) => {
         fetch(`http://localhost:3000/books/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(book)
+            body: JSON.stringify(values)
         })
             .then(() => {
                 console.log('Book edited')
@@ -40,16 +40,11 @@ function EditBook() {
             })
     }
 
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        const { id, value } = event.target
-        setBook({
-            ...book,
-            [id]: value,
-        })
-    }
-
     return (
-      <BookForm headerText="Edit Book" onChange={onChange} footerButton={<Button onClick={handleEditBook}>Edit Book</Button>} formContent={book} />
+        <Container>
+            <h1>Edit Book</h1>
+            <BookForm onSubmit={handleEditBook} formContent={book} />
+        </Container>
     )
   }
   

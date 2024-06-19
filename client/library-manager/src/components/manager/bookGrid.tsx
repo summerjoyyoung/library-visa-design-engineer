@@ -11,9 +11,11 @@ type BookGridProps = {
 }
 
 function BookGrid({ books, setShowConfirmDelete, setDeleteBookId }: BookGridProps) {
-    const handleDelete = (id: number) => {
+    const handleDelete = (id?: number) => {
+      if (id) {
         setShowConfirmDelete(true)
         setDeleteBookId(id)
+      }
     }
   return (
     <Row xs={1} md={2} lg={3} className='g-4'>
