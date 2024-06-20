@@ -5,29 +5,41 @@ import BookGrid from './bookGrid'
 import ConfirmDeleteDialog from './confirmDeleteDialog'
 import { create } from 'zustand'
 import { Books } from '../../../../../types'
-import { Navbar } from 'react-bootstrap'
+import { Alert, Navbar } from 'react-bootstrap'
 
 interface ManagerState {
   books: Books
   deleteBookId: number
   showConfirmDelete: boolean
+  alert: {
+    show: boolean
+    variant: 'error' | 'success'
+    message: string
+  }
   setBooks: (books: Books) => void
   setShowConfirmDelete: (show: boolean) => void
   setDeleteBookId: (id: number) => void
+  setShowAlert: (show: boolean, variant: 'error' | 'success', message: string) => void
 }
 
-const useManagerState = create<ManagerState>((set) => ({
+export const useManagerState = create<ManagerState>((set) => ({
   books: [],
   deleteBookId: -1,
   showConfirmDelete: false,
+  alert: {
+    show: false,
+    variant: 'error',
+    message: '',
+  },
   setBooks: (books) => set({ books }),
   setShowConfirmDelete: (show) => set({ showConfirmDelete: show }),
   setDeleteBookId: (id) => set({ deleteBookId: id }),
+  setShowAlert: (show, variant, message) => set({ alert: { show, variant, message } }),
 }))
 
 function Manager() {
   const name = 'Library Manager'
-  const { books, showConfirmDelete, deleteBookId, setBooks, setShowConfirmDelete, setDeleteBookId } = useManagerState()  
+  const { books, showConfirmDelete, deleteBookId, alert, setBooks, setShowConfirmDelete, setDeleteBookId, setShowAlert } = useManagerState()  
 
   useEffect(() => {
     fetch('http://localhost:3000/books')
@@ -41,9 +53,18 @@ function Manager() {
     fetch(`http://localhost:3000/books/${deleteBookId}`, {
       method: 'DELETE',
     })
-      .then(() => {
-        setBooks(books.filter((book) => book.id !== deleteBookId))
-        setShowConfirmDelete(false)
+      .then((response) => {
+        if (response.status === 204) {          
+          setBooks(books.filter((book) => book.id !== deleteBookId))
+          setShowConfirmDelete(false)
+          setShowAlert(true, 'success', 'Book deleted')
+        } else {
+          throw new Error('Failed to delete book')
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+        setShowAlert(true, 'error', 'Failed to delete book')
       })
   }
 
@@ -53,6 +74,9 @@ function Manager() {
         <h1>{name}</h1>
         <Button size='lg' href='/add-book'>Add Book</Button>
       </Navbar>
+      <Alert variant={alert.variant} className='mt-3' show={alert.show} dismissible onClose={() => setShowAlert(false, alert.variant, alert.message)}>
+        {alert.message}
+      </Alert>
       <Container className='mt-5'>
         <h2 className='mb-3'>{books.length} books total</h2>
         <BookGrid books={books} setShowConfirmDelete={setShowConfirmDelete} setDeleteBookId={setDeleteBookId} />

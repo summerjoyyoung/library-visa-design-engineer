@@ -4,6 +4,7 @@ import { useEffect } from "react"
 import { Book } from "../../../../../types"
 import { create } from "zustand"
 import Container from "react-bootstrap/Container"
+import { useManagerState } from "../manager"
 
 interface EditState {
     book: Book | undefined
@@ -18,6 +19,7 @@ const useEditState = create<EditState>((set) => ({
 function EditBook() {
     const { id } = useParams()
     const { book, setBook } = useEditState()
+    const { setShowAlert } = useManagerState()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -34,9 +36,18 @@ function EditBook() {
             },
             body: JSON.stringify(values)
         })
-            .then(() => {
-                console.log('Book edited')
-                return navigate('/')
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log('Book edited')
+                    setShowAlert(true, 'success', 'Book edited')
+                    return navigate('/')
+                } else {
+                    throw new Error('Failed to edit book')
+                }
+            })
+            .catch((error) => {
+                console.error(error)
+                setShowAlert(true, 'error', 'Failed to edit book')
             })
     }
 

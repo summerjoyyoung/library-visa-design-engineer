@@ -2,8 +2,10 @@ import BookForm from "../shared/bookForm"
 import { Book } from "../../../../../types"
 import { useNavigate } from "react-router-dom"
 import Container from "react-bootstrap/Container"
+import { useManagerState } from "../manager"
 
 function AddBook() {
+    const { setShowAlert } = useManagerState()
     const navigate = useNavigate()
 
     const handleAddBook = (values: Book) => {
@@ -14,9 +16,18 @@ function AddBook() {
             },
             body: JSON.stringify(values)
         })
-            .then(() => {
-                console.log('Book added')
-                return navigate('/')
+            .then((response) => {
+                if (response.status === 201) {
+                    console.log('Book added')
+                    setShowAlert(true, 'success', 'Book added')
+                    return navigate('/')
+                } else {
+                    throw new Error('Failed to add book')
+                }
+            })
+            .catch((error) => {
+                console.error(error)
+                setShowAlert(true, 'error', 'Failed to add book')
             })
     }
     
