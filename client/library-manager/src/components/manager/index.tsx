@@ -5,6 +5,7 @@ import BookGrid from './bookGrid'
 import ConfirmDeleteDialog from './confirmDeleteDialog'
 import { create } from 'zustand'
 import { Books } from '../../../../../types'
+import { Navbar } from 'react-bootstrap'
 
 interface ManagerState {
   books: Books
@@ -48,11 +49,15 @@ function Manager() {
 
   return (
     <Container className='p-3'>
-      <h1>{name}</h1>
-      <Button href='/add-book'>Add Book</Button>
-      <h2>{books.length} books total</h2>
-      <BookGrid books={books} setShowConfirmDelete={setShowConfirmDelete} setDeleteBookId={setDeleteBookId} />
-      <ConfirmDeleteDialog show={showConfirmDelete} handleClose={() => setShowConfirmDelete(false)} handleDelete={() => handleDeleteBook()} />
+      <Navbar className='justify-content-between' expand='lg'>
+        <h1>{name}</h1>
+        <Button size='lg' href='/add-book'>Add Book</Button>
+      </Navbar>
+      <Container className='mt-5'>
+        <h2 className='mb-3'>{books.length} books total</h2>
+        <BookGrid books={books} setShowConfirmDelete={setShowConfirmDelete} setDeleteBookId={setDeleteBookId} />
+        <ConfirmDeleteDialog show={showConfirmDelete} handleClose={() => setShowConfirmDelete(false)} handleDelete={() => handleDeleteBook()} />
+      </Container>
     </Container>
   )
 }

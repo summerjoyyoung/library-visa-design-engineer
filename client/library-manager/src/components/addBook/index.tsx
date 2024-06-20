@@ -21,8 +21,8 @@ function AddBook() {
     }
     
     return (
-        <Container>
-            <h1>Add Book</h1>
+        <Container className="mt-5">
+            <h1 className="mb-5">Add Book</h1>
             <BookForm onSubmit={handleAddBook} />
         </Container>
     )

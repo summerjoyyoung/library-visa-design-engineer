@@ -23,12 +23,12 @@ function BookGrid({ books, setShowConfirmDelete, setDeleteBookId }: BookGridProp
         books.map((book: Book) => (
           <Col key={book.id}>
             <Card>
-              <Card.Body>
+              <Card.Body className='p-4'>
                 <Card.Title>{book.title}</Card.Title>
                 <Card.Subtitle>{book.author}</Card.Subtitle>
                 <Card.Text>{book.year}</Card.Text>
                 <Card.Text>{book.genre}</Card.Text>
-                <Button onClick={() => handleDelete(book.id)} variant='outline-danger'>Delete</Button>
+                <Button className='me-3' onClick={() => handleDelete(book.id)} variant='outline-danger'>Delete</Button>
                 <Button variant='primary' href={`/edit-book/${book.id}`}>Edit</Button>
               </Card.Body>
             </Card>

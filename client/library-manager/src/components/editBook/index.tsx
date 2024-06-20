@@ -41,8 +41,8 @@ function EditBook() {
     }
 
     return (
-        <Container>
-            <h1>Edit Book</h1>
+        <Container className="mt-5">
+            <h1 className="mb-5">Edit Book</h1>
             <BookForm onSubmit={handleEditBook} formContent={book} />
         </Container>
     )

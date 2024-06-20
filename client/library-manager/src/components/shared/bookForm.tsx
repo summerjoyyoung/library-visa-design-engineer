@@ -95,7 +95,7 @@ function BookForm({ formContent, onSubmit }: BookFormProps) {
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Row>
-                    <Button variant="primary" type="submit">Submit</Button>
+                    <Button className="mt-2" size="lg" variant="primary" type="submit">Submit</Button>
                 </Form>
             )}
         </Formik>
