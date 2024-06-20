@@ -44,7 +44,7 @@ function BookForm({ formContent, onSubmit }: BookFormProps) {
                                 value={values.title}
                                 onChange={handleChange}
                                 isValid={touched.title && !errors.title}
-                                isInvalid={!!errors.title}
+                                isInvalid={touched.title && !!errors.title}
                             />
                             <Form.Control.Feedback type="invalid">
                                 {errors.title}
@@ -58,7 +58,7 @@ function BookForm({ formContent, onSubmit }: BookFormProps) {
                                 value={values.author}
                                 onChange={handleChange}
                                 isValid={touched.author && !errors.author}
-                                isInvalid={!!errors.author}
+                                isInvalid={touched.author && !!errors.author}
                             />
                             <Form.Control.Feedback type="invalid">
                                 {errors.author}
@@ -74,7 +74,7 @@ function BookForm({ formContent, onSubmit }: BookFormProps) {
                                 value={values.year}
                                 onChange={handleChange}
                                 isValid={touched.year && !errors.year}
-                                isInvalid={!!errors.year}
+                                isInvalid={touched.year && !!errors.year}
                             />
                             <Form.Control.Feedback type="invalid">
                                 {errors.year}
@@ -88,7 +88,7 @@ function BookForm({ formContent, onSubmit }: BookFormProps) {
                                 value={values.genre}
                                 onChange={handleChange}
                                 isValid={touched.genre && !errors.genre}
-                                isInvalid={!!errors.genre}
+                                isInvalid={touched.genre && !!errors.genre}
                             />
                             <Form.Control.Feedback type="invalid">
                                 {errors.genre}
