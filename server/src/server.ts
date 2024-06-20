@@ -25,7 +25,7 @@ app.post('/books', (req: { body: Book; }, res: { status: (arg0: number) => { ():
     return res.status(400).send('Missing one or more required fields. { title, author, year, genre }');
   }
 
-  const newBook = { id: books.length + 1, title, author, year, genre };
+  const newBook = { id: Math.floor(1000 + Math.random() * 9000), title, author, year, genre };
   books.push(newBook);
   res.status(201).send(`Book added with ID: ${newBook.id}`);
 });
