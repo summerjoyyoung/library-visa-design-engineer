@@ -3,43 +3,12 @@ import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import BookGrid from './bookGrid'
 import ConfirmDeleteDialog from './confirmDeleteDialog'
-import { create } from 'zustand'
-import { Books } from '../../../../../types'
 import { Alert, Navbar } from 'react-bootstrap'
-
-interface ManagerState {
-  books: Books
-  deleteBookId: number
-  showConfirmDelete: boolean
-  alert: {
-    show: boolean
-    variant: 'error' | 'success'
-    message: string
-  }
-  setBooks: (books: Books) => void
-  setShowConfirmDelete: (show: boolean) => void
-  setDeleteBookId: (id: number) => void
-  setShowAlert: (show: boolean, variant: 'error' | 'success', message: string) => void
-}
-
-export const useManagerState = create<ManagerState>((set) => ({
-  books: [],
-  deleteBookId: -1,
-  showConfirmDelete: false,
-  alert: {
-    show: false,
-    variant: 'error',
-    message: '',
-  },
-  setBooks: (books) => set({ books }),
-  setShowConfirmDelete: (show) => set({ showConfirmDelete: show }),
-  setDeleteBookId: (id) => set({ deleteBookId: id }),
-  setShowAlert: (show, variant, message) => set({ alert: { show, variant, message } }),
-}))
+import { useAppState } from '../../main'
 
 function Manager() {
   const name = 'Library Manager'
-  const { books, showConfirmDelete, deleteBookId, alert, setBooks, setShowConfirmDelete, setDeleteBookId, setShowAlert } = useManagerState()  
+  const { books, showConfirmDelete, deleteBookId, alert, setBooks, setShowConfirmDelete, setDeleteBookId, setShowAlert } = useAppState()  
 
   useEffect(() => {
     fetch('http://localhost:3000/books')

@@ -2,10 +2,10 @@ import BookForm from "../shared/bookForm"
 import { Book } from "../../../../../types"
 import { useNavigate } from "react-router-dom"
 import Container from "react-bootstrap/Container"
-import { useManagerState } from "../manager"
+import { useAppState } from '../../main'
 
 function AddBook() {
-    const { setShowAlert } = useManagerState()
+    const { setShowAlert } = useAppState()
     const navigate = useNavigate()
 
     const handleAddBook = (values: Book) => {

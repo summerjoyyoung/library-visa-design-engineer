@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import { Book } from "../../../../../types"
 import { create } from "zustand"
 import Container from "react-bootstrap/Container"
-import { useManagerState } from "../manager"
+import { useAppState } from '../../main'
 
 interface EditState {
     book: Book | undefined
@@ -19,7 +19,7 @@ const useEditState = create<EditState>((set) => ({
 function EditBook() {
     const { id } = useParams()
     const { book, setBook } = useEditState()
-    const { setShowAlert } = useManagerState()
+    const { setShowAlert } = useAppState()
     const navigate = useNavigate()
 
     useEffect(() => {
