@@ -7,5 +7,10 @@ To run client:\
   `yarn dev`
 
 To run server:\
-  `node server.js`
+  `cd server`\
+  compile server code\
+  `node index.js`
 
+To compile server code:\
+  `cd server`\
+  `npx tsc` ** file name **
