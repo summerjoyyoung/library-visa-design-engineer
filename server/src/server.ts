@@ -1,3 +1,8 @@
+/**
+ * This file contains the implementation of a simple server using Express.js.
+ * The server provides endpoints for creating, retrieving, updating, and deleting books.
+ */
+
 import { Book, Books } from '../../types';
 const express = require('express');
 const cors = require('cors');
@@ -18,7 +23,11 @@ let books: Books = [
 
 app.use(express.json());
 
-// Create a Book
+/**
+ * Create a new book.
+ * @param req - The request object containing the book details.
+ * @param res - The response object to send the result.
+ */
 app.post('/books', (req: { body: Book; }, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: string): void; new(): any; }; }; }) => {
   const { title, author, year, genre } = req.body;
   if (!title || !author || !year || !genre) {
@@ -30,21 +39,33 @@ app.post('/books', (req: { body: Book; }, res: { status: (arg0: number) => { ():
   res.status(201).send(`Book added with ID: ${newBook.id}`);
 });
 
-// Get All Books
+/**
+ * Get all books.
+ * @param req - The request object.
+ * @param res - The response object to send the result.
+ */
 app.get('/books', (req: any, res: { json: (arg0: Book[]) => void; }) => {
   res.json(books);
 });
 
-// Get a Single Book
+/**
+ * Get a single book by ID.
+ * @param req - The request object containing the book ID.
+ * @param res - The response object to send the result.
+ */
 app.get('/books/:id', (req: { params: { id: string; }; }, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: string): any; new(): any; }; }; json: (arg0: Book) => void; }) => {
   const book = books.find(b => b.id === parseInt(req.params.id));
-if (!book) {
-  return res.status(404).send('Book not found');
-}
-res.json(book);
+  if (!book) {
+    return res.status(404).send('Book not found');
+  }
+  res.json(book);
 });
 
-// Update a Book
+/**
+ * Update a book by ID.
+ * @param req - The request object containing the book ID and updated details.
+ * @param res - The response object to send the result.
+ */
 app.put('/books/:id', (req: { params: { id: string; }; body: Book; }, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: string): any; new(): any; }; }; send: (arg0: Book) => void; }) => {
   const book = books.find(b => b.id === parseInt(req.params.id));
   if (!book) {
@@ -60,7 +81,11 @@ app.put('/books/:id', (req: { params: { id: string; }; body: Book; }, res: { sta
   res.send(book);
 });
 
-// Delete a Book
+/**
+ * Delete a book by ID.
+ * @param req - The request object containing the book ID.
+ * @param res - The response object to send the result.
+ */
 app.delete('/books/:id', (req: { params: { id: string; }; }, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: string | undefined): void; new(): any; }; }; }) => {
   const bookIndex = books.findIndex(b => b.id === parseInt(req.params.id));
   if (bookIndex === -1) {
