@@ -17,13 +17,16 @@ export interface AppState {
     variant: 'error' | 'success'
     message: string
   }
+}
+
+export interface AppActions {
   setBooks: (books: Books) => void
   setShowConfirmDelete: (show: boolean) => void
   setDeleteBookId: (id: number) => void
   setShowAlert: (show: boolean, variant: 'error' | 'success', message: string) => void
 }
 
-export const useAppState = create<AppState>((set) => ({
+export const useAppState = create<AppState & AppActions>((set) => ({
   books: [],
   deleteBookId: -1,
   showConfirmDelete: false,
