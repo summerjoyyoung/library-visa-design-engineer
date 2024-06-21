@@ -2,6 +2,7 @@ import { Formik, FormikHelpers } from "formik";
 import { Book } from "../../../../../types";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 type BookFormProps = {
     formContent?: Book;
@@ -17,6 +18,8 @@ function BookForm({ formContent, onSubmit }: BookFormProps) {
         year: yup.string().required(),
         genre: yup.string().required(),
     });
+
+    const navigate = useNavigate();
 
     return (
         <Formik
@@ -95,6 +98,7 @@ function BookForm({ formContent, onSubmit }: BookFormProps) {
                             </Form.Control.Feedback>
                         </Form.Group>
                     </Row>
+                    <Button className="me-2 mt-2" size="lg" variant="secondary" type="button" onClick={() => navigate("/")}>Cancel</Button>
                     <Button className="mt-2" size="lg" variant="primary" type="submit">Submit</Button>
                 </Form>
             )}
