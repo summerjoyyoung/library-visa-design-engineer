@@ -42,4 +42,14 @@ describe("BookForm", () => {
             }),
           )
     });
+    test("shows error message when title is empty", () => {
+        const submitButton = screen.getByRole("button", { name: "Submit" });
+
+        const clicked = fireEvent.click(submitButton);
+        expect(clicked).toBe(true);
+
+        waitFor(() => {
+            expect(screen.getByText("Title is required")).toBeDefined();
+        })
+    });
 });
