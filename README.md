@@ -7,10 +7,5 @@ To run client:\
   `yarn dev`
 
 To run server:\
-  `cd server`\
-  compile server code\
-  `node index.js`
-
-To compile server code:\
-  `cd server`\
-  `npx tsc` ** file name **
+  `yarn start`
+Note: you should see message "Server running at http://localhost:3000"
