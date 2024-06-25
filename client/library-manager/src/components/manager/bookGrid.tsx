@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button'
 import { Book, Books } from '../../../../../types'
+import NoBooks from './noBooks';
 
 type BookGridProps = {
     books: Books,
@@ -19,7 +20,7 @@ function BookGrid({ books, setShowConfirmDelete, setDeleteBookId }: BookGridProp
     }
   return (
     <Row xs={1} md={2} lg={3} className='g-4'>
-      {
+      {books.length === 0 ? <NoBooks /> :
         books.map((book: Book) => (
           <Col key={book.id}>
             <Card>
