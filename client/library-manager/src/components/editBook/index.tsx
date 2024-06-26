@@ -4,8 +4,7 @@ import { useEffect } from "react"
 import { Book } from "../../../../../types"
 import { create } from "zustand"
 import Container from "react-bootstrap/Container"
-import { useAppState } from '../../main'
-
+import { useAppState } from "../manager/appState"
 interface EditState {
     book: Book | undefined
     setBook: (book: Book) => void

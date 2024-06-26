@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import BookGrid from './bookGrid'
 import ConfirmDeleteDialog from './confirmDeleteDialog'
 import { Alert, Navbar } from 'react-bootstrap'
-import { useAppState } from '../../main'
+import { useAppState } from './appState'
 
 function Manager() {
   const name = 'Library Manager'
